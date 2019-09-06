@@ -6,6 +6,8 @@ fs.writeFileSync('notes.txt', 'I AM GROOT');
 fs.appendFileSync('notes.txt', '  STARLORD!');
 */
 
-const firstName = require('./utils');
+const add = require('./utils');
 
-console.log(firstName);
+const sum = add(4, 3);
+
+console.log(sum);
