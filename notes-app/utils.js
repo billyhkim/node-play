@@ -2,7 +2,7 @@ console.log('utils.js');
 
 const name = 'Billy';
 
-const add = function(a, b) {
+const add = (a, b) => {
   return a + b;
 }
 
