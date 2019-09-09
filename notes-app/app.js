@@ -8,13 +8,19 @@ fs.appendFileSync('notes.txt', '  STARLORD!');
 const add = require('./utils');
 const sum = add(4, 3);
 console.log(sum);
+
+// validator
+const validator = require('validator');
+
+console.log('Email is valid: ', validator.isEmail('billy@example.com'));
+console.log('URL is valid: ', validator.isURL('www.example.com'));
 */
 
-const validator = require('validator');
+const chalk = require('chalk');
 const getNotes = require('./notes');
 
 const notes = getNotes();
 console.log(notes);
 
-console.log('Email is valid: ', validator.isEmail('billy@example.com'));
-console.log('URL is valid: ', validator.isURL('www.example.com'));
+const greenSuccessMsg = chalk.bold.green.inverse('Success!');
+console.log(greenSuccessMsg);
