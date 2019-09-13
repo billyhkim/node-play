@@ -14,13 +14,15 @@ const validator = require('validator');
 
 console.log('Email is valid: ', validator.isEmail('billy@example.com'));
 console.log('URL is valid: ', validator.isURL('www.example.com'));
+
+// using the module.exports function from notes.js
+const notes = getNotes();
+console.log(notes);
 */
 
 const chalk = require('chalk');
+const yargs = require('yargs');
 const getNotes = require('./notes');
 
-const notes = getNotes();
-console.log(notes);
-
-const greenSuccessMsg = chalk.bold.green.inverse('Success!');
-console.log(greenSuccessMsg);
+console.log(process.argv);
+console.log(yargs.argv);
