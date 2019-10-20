@@ -11,9 +11,10 @@ console.log('Stopping');
 const request = require('request');
 const chalk = require('chalk');
 
-const url = 'https://api.darksky.net/forecast/081adf3326f39a684339e12e3c742b8d/33.8366,-117.9143';
+const url = 'https://api.darksky.net/forecast/081adf3326f39a684339e12e3c742b8d/33.8366,-117.9143?lang=ko&units=us';
 
 request({ url, json: true }, (err, res) => {
   // console.log(res.body.currently);
+  console.log(`${chalk.bold.magenta(res.body.daily.data[0].summary)}`);
   console.log(`It is currently ${chalk.bold.green(res.body.currently.temperature)} degrees. There is a ${chalk.bold.blue(res.body.currently.precipProbability)}% chance of rain.`);
 });
