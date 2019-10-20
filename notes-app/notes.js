@@ -58,7 +58,14 @@ const listNotes = () => {
 const readNote = title => {
   const notes = loadNotes();
 
-  const searchedNote = notes.find(note => note.title === title);  
+  const searchedNote = notes.find(note => note.title === title);
+  
+  if (searchedNote) {
+    console.log(chalk.bold.red(`Title: ${searchedNote.title}`));
+    console.log(chalk.bold.magenta(`Desc.: ${searchedNote.body}`));
+  } else {
+    console.log(chalk.bold.inverse.red(`Invalid note title, try again!`));
+  }
 }
 
 module.exports = {
