@@ -17,7 +17,7 @@ request({ url: darkskyUrl, json: true }, (err, res) => {
   if (err) {
     console.error(`Unable to connect to weather service.`);
   } else if (res.body.error) {
-    console.log(`Unable to find location.`)
+    console.error(`Unable to find location.`)
   } else {
     console.log(`${chalk.bold.magenta(res.body.daily.data[0].summary)}`);
     console.log(`It is currently ${chalk.bold.green(res.body.currently.temperature)} degrees. There is a ${chalk.bold.blue(res.body.currently.precipProbability)}% chance of rain.`);
@@ -30,7 +30,13 @@ request({ url: darkskyUrl, json: true }, (err, res) => {
 const mapboxGeocodeUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=pk.eyJ1IjoiYmlsbHloa2ltIiwiYSI6ImNrMXpnaWZ2ejB1eGYzaG80cTM0N3N6amoifQ.Jmy5hJVkidza14aFCloW6A&limit=1';
 
 request({ url: mapboxGeocodeUrl, json: true }, (err, res) => {
-  const longitude = res.body.features[0].center[0];
-  const latitude = res.body.features[0].center[1];
-  console.log(chalk.yellow.bold(`latitude: ${latitude}, longitude: ${longitude}`));
+  if (err) {
+    console.error(`Unable to connect to geocoding service.`);
+  } else if (res.body.features.length === 0) {
+    console.error(`Not a valid location.`)
+  } else {
+    const longitude = res.body.features[0].center[0];
+    const latitude = res.body.features[0].center[1];
+    console.log(chalk.yellow.bold(`latitude: ${latitude}, longitude: ${longitude}`));
+  }
 })
