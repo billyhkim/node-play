@@ -14,9 +14,14 @@ const chalk = require('chalk');
 const darkskyUrl = 'https://api.darksky.net/forecast/081adf3326f39a684339e12e3c742b8d/33.8366,-117.9143?lang=ko&units=us';
 
 request({ url: darkskyUrl, json: true }, (err, res) => {
-  // console.log(res.body.currently);
-  console.log(`${chalk.bold.magenta(res.body.daily.data[0].summary)}`);
-  console.log(`It is currently ${chalk.bold.green(res.body.currently.temperature)} degrees. There is a ${chalk.bold.blue(res.body.currently.precipProbability)}% chance of rain.`);
+  if (err) {
+    console.error(`Unable to connect to weather service.`);
+  } else if (res.body.error) {
+    console.log(`Unable to find location.`)
+  } else {
+    console.log(`${chalk.bold.magenta(res.body.daily.data[0].summary)}`);
+    console.log(`It is currently ${chalk.bold.green(res.body.currently.temperature)} degrees. There is a ${chalk.bold.blue(res.body.currently.precipProbability)}% chance of rain.`);
+  }
 });
 
 // Geocoding
