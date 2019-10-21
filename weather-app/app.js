@@ -12,12 +12,23 @@ const chalk = require('chalk');
 const geocode = require('./utils/geocode');
 const forecast = require('./utils/forecast');
 
-geocode('Irvine California', (err, data) => {
-  console.log('Error: ', err);
-  console.log('Data: ', data);
-});
+const address = process.argv[2];
 
-forecast(-75.7088, 44.1545, (err, data) => {
-  console.log('Error: ', err)
-  console.log('Data: ', data)
-})
+if (!address) {
+  console.log(`Please provide an address.`);
+} else {
+  geocode(address, (err, data) => {
+    if (err) {
+      return console.log(err);
+    }
+  
+    forecast(data.latitude, data.longitude, (err, forecastData) => {
+      if (err) {
+        return console.log(err);
+      }
+  
+      console.log(chalk.bold.green(data.location));
+      console.log(forecastData);
+    })
+  });
+}
